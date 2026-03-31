@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>午间新闻简报 - 2026年3月31日</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .header .date {
+            color: #8892b0;
+            font-size: 14px;
+        }
+        .summary-card {
+            background: linear-gradient(135deg, #2d3561 0%, #1e2243 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .summary-card h2 {
+            color: #64ffda;
+            font-size: 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        @media (max-width: 600px) {
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .category-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .category-item:hover {
+            background: rgba(100,255,218,0.1);
+            border-color: rgba(100,255,218,0.3);
+            transform: translateY(-2px);
+        }
+        .category-item .icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .category-item .name {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .category-item .count {
+            color: #64ffda;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        .news-section {
+            display: none;
+            margin-top: 24px;
+        }
+        .news-section.active {
+            display: block;
+        }
+        .news-section h3 {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .news-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 3px solid #64ffda;
+        }
+        .news-item h4 {
+            color: #fff;
+            font-size: 15px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .news-item .content {
+            color: #a8b2d1;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .news-item .meta {
+            color: #8892b0;
+            font-size: 12px;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #64ffda;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            padding: 8px 12px;
+            background: rgba(100,255,218,0.1);
+            border-radius: 8px;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: rgba(100,255,218,0.2);
+        }
+        .footer {
+            text-align: center;
+            color: #8892b0;
+            font-size: 12px;
+            margin-top: 30px;
+            padding: 16px;
+        }
+        .footer a {
+            color: #64ffda;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📰 午间新闻简报</h1>
+            <p class="date">2026年3月31日 · 星期二</p>
+        </div>
+
+        <!-- 汇总卡片 -->
+        <div class="summary-card">
+            <h2>📋 今日新闻速览</h2>
+            <div class="category-grid">
+                <div class="category-item" onclick="showSection('politics')">
+                    <div class="icon">🏛️</div>
+                    <div class="name">政治</div>
+                    <div class="count">2条新闻</div>
+                </div>
+                <div class="category-item" onclick="showSection('military')">
+                    <div class="icon">🎖️</div>
+                    <div class="name">军事</div>
+                    <div class="count">2条新闻</div>
+                </div>
+                <div class="category-item" onclick="showSection('diplomacy')">
+                    <div class="icon">🌍</div>
+                    <div class="name">外交</div>
+                    <div class="count">2条新闻</div>
+                </div>
+                <div class="category-item" onclick="showSection('economy')">
+                    <div class="icon">💹</div>
+                    <div class="name">经济</div>
+                    <div class="count">3条新闻</div>
+                </div>
+                <div class="category-item" onclick="showSection('law')">
+                    <div class="icon">⚖️</div>
+                    <div class="name">法制</div>
+                    <div class="count">2条新闻</div>
+                </div>
+                <div class="category-item" onclick="showSection('entertainment')">
+                    <div class="icon">🎭</div>
+                    <div class="name">文娱</div>
+                    <div class="count">2条新闻</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 政治新闻 -->
+        <div class="news-section" id="politics">
+            <button class="back-btn" onclick="hideAll()">← 返回汇总</button>
+            <h3>🏛️ 政治</h3>
+            <div class="news-item">
+                <h4>习近平参加首都义务植树活动</h4>
+                <p class="content">3月30日，习近平总书记在参加首都义务植树活动时强调，要为山川大地增添锦绣，让中国式现代化底色更加亮丽。</p>
+                <p class="meta">背景：首都义务植树活动是每年的惯例，体现了生态文明建设的重要性。<br>意义：彰显党中央对生态环境保护的高度重视，为推进美丽中国建设注入强劲动力。</p>
+            </div>
+            <div class="news-item">
+                <h4>中共中央欢迎中国国民党主席郑丽文率团来访</h4>
+                <p class="content">中共中央和习近平总书记欢迎并邀请中国国民党主席郑丽文率团来访。</p>
+                <p class="meta">背景：在两岸关系发展关键时期的重要交流活动。<br>意义：有助于促进两岸同胞的沟通交流，推动两岸关系和平发展。</p>
+            </div>
+        </div>
+
+        <!-- 军事新闻 -->
+        <div class="news-section" id="military">
+            <button class="back-btn" onclick="hideAll()">← 返回汇总</button>
+            <h3>🎖️ 军事</h3>
+            <div class="news-item">
+                <h4>美以对伊朗发动空袭 冲突持续升级</h4>
+                <p class="content">美以对德黑兰等多地发动空袭，伊朗打击美以军事设施。美伊冲突已持续一个月，以色列多地出现反战抗议。以色列议会批准国家预算，军费创新高。</p>
+                <p class="meta">背景：美伊冲突已进入第27天，双方在军事和外交层面持续紧张。<br>意义：中东局势持续紧张，全球能源安全面临"史上最严重"威胁，国际油价剧烈震荡。</p>
+            </div>
+            <div class="news-item">
+                <h4>以军袭击黎巴嫩 导致重大伤亡</h4>
+                <p class="content">以军袭击导致黎巴嫩47人死亡，包括多名记者和救援人员。也门胡塞武装宣布对以色列发动第二轮打击。</p>
+                <p class="meta">背景：巴以冲突持续，加沙地带多地遭袭。<br>意义：地区冲突进一步恶化，人道主义危机加剧。</p>
+            </div>
+        </div>
+
+        <!-- 外交新闻 -->
+        <div class="news-section" id="diplomacy">
+            <button class="back-btn" onclick="hideAll()">← 返回汇总</button>
+            <h3>🌍 外交</h3>
+            <div class="news-item">
+                <h4>习近平向世界数据组织成立致贺信</h4>
+                <p class="content">习近平向世界数据组织成立致贺信，丁薛祥出席世界数据组织成立大会并发表主旨讲话。</p>
+                <p class="meta">背景：世界数据组织是新兴的国际组织，专注于数据治理与合作。<br>意义：彰显中国在全球数据治理中的积极参与和建设性作用。</p>
+            </div>
+            <div class="news-item">
+                <h4>欧盟延长对伊朗人权制裁至2027年</h4>
+                <p class="content">当地时间3月30日，欧盟理事会决定将欧盟针对伊朗人权方面而采取的限制性措施延长至2027年4月13日。</p>
+                <p class="meta">背景：涉及资产冻结、旅行禁令等措施。<br>意义：反映西方国家对伊朗的政策持续施压。</p>
+            </div>
+        </div>
+
+        <!-- 经济新闻 -->
+        <div class="news-section" id="economy">
+            <button class="back-btn" onclick="hideAll()">← 返回汇总</button>
+            <h3>💹 经济</h3>
+            <div class="news-item">
+                <h4>财政部将发行5000亿元特别国债</h4>
+                <p class="content">财政部将发行5000亿元特别国债，支持国有大行补充资本。</p>
+                <p class="meta">背景：这是落实金融支持实体经济的重要举措。<br>意义：有助于增强银行体系的稳健性，支持经济发展。</p>
+            </div>
+            <div class="news-item">
+                <h4>中国制造业PMI加快扩张</h4>
+                <p class="content">中国制造业采购经理指数（PMI）加快扩张，显示经济活力增强。</p>
+                <p class="meta">背景：PMI是经济先行指标，其扩张表明经济运行态势良好。<br>意义：为实现全年经济目标奠定基础。</p>
+            </div>
+            <div class="news-item">
+                <h4>第八届进博会签约面积超24万平方米</h4>
+                <p class="content">第八届进博会企业商业展签约面积已超过24万平方米，第六届消博会将于4月13日至18日在海南举办。</p>
+                <p class="meta">背景：进博会是世界上首个以进口为主题的国家级展会。<br>意义：彰显中国持续扩大开放的决心，推动国际贸易合作。</p>
+            </div>
+        </div>
+
+        <!-- 法制新闻 -->
+        <div class="news-section" id="law">
+            <button class="back-btn" onclick="hideAll()">← 返回汇总</button>
+            <h3>⚖️ 法制</h3>
+            <div class="news-item">
+                <h4>"两高"修改环境污染刑事案件司法解释</h4>
+                <p class="content">最高人民法院、最高人民检察院联合发布《关于修改〈最高人民法院、最高人民检察院关于办理环境污染刑事案件适用法律若干问题的解释〉的决定》，自2026年3月30日起施行。新解释明确：积极修复生态环境，可从宽处理。</p>
+                <p class="meta">背景：这是推进生态文明建设的重要司法举措。<br>意义：完善了环境污染犯罪的法律适用，引导犯罪行为人积极修复生态环境。</p>
+            </div>
+            <div class="news-item">
+                <h4>《公共安全视频图像信息系统管理条例》将施行</h4>
+                <p class="content">《公共安全视频图像信息系统管理条例》自2026年4月1日起施行。</p>
+                <p class="meta">背景：规范视频图像信息系统的建设与应用。<br>意义：有助于保障公共安全，规范相关行业管理。</p>
+            </div>
+        </div>
+
+        <!-- 文娱新闻 -->
+        <div class="news-section" id="entertainment">
+            <button class="back-btn" onclick="hideAll()">← 返回汇总</button>
+            <h3>🎭 文娱</h3>
+            <div class="news-item">
+                <h4>2026中关村论坛年会成功举办</h4>
+                <p class="content">2026中关村论坛年会以"科技创新与产业创新深度融合"为主题，来自全球100多个国家和地区的上千名嘉宾参会。</p>
+                <p class="meta">背景：中关村论坛是中国面向全球科技创新交流合作的国家级平台。<br>意义：推动国际科技合作，助力建设科技强国。</p>
+            </div>
+            <div class="news-item">
+                <h4>中国网络媒体论坛开幕</h4>
+                <p class="content">2026中国网络媒体论坛开幕，聚焦网络媒体发展新趋势。</p>
+                <p class="meta">背景：论坛是探讨网络媒体发展的重要平台。<br>意义：推动网络媒体健康有序发展。</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📅 信息来源：新华社、央视新闻、中新网、财联社</p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(id) {
+            document.querySelector('.summary-card').style.display = 'none';
+            document.querySelectorAll('.news-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function hideAll() {
+            document.querySelector('.summary-card').style.display = 'block';
+            document.querySelectorAll('.news-section').forEach(s => s.classList.remove('active'));
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
